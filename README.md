@@ -106,12 +106,56 @@ Key exchange successful! Both keys match.
 - Research more about Diffie-Hellman and other cryptographic methods like RSA.
 
 ---
+mathematics re: updated version 4 release notes
+
+The Sieve of Eratosthenes is an ancient algorithm used to find all prime numbers up to a specified integer n. It is efficient and straightforward, making it a popular choice for generating a list of primes. Here’s a detailed explanation of how the algorithm works:
+
+Steps of the Sieve of Eratosthenes
+Initialization:
+Create a list (or array) of consecutive integers from 2 to n. For example, if n=30, the list will be: [2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30]
+Marking Non-Primes:
+Start with the first number in the list (which is 2). This number is prime.
+Mark all multiples of this prime number (2) as non-prime (composite). In our example, you would mark 4, 6, 8, 10, ..., 30.
+The list now looks like this (where "X" indicates a non-prime): [2,3,X,5,X,7,X,9,X,11,X,13,X,15,X,17,X,19,X,21,X,23,X,25,X,27,X,29,X]
+Repeat for Next Prime:
+Move to the next number in the list that is still marked as prime (which is 3). Mark all multiples of 3 as non-prime (6, 9, 12, ..., 30).
+Continue this process for the next unmarked number (which is 5), marking its multiples (10, 15, 20, ..., 30).
+Continue Until  
+n
+​
+ :
+You only need to continue this process up to  
+n
+​
+ . This is because any composite number n must have at least one factor less than or equal to  
+n
+​
+ .
+For n=30, you would continue marking multiples of 2, 3, 5 (up to  
+30
+​
+ ≈5.48).
+Collecting Primes:
+After marking the multiples of all prime numbers up to  
+n
+​
+ , the remaining unmarked numbers in the list are all the prime numbers up to n.
+For n=30, the remaining unmarked numbers are: [2,3,5,7,11,13,17,19,23,29]
+Complexity
+Time Complexity: The Sieve of Eratosthenes runs in O(nloglogn), which is very efficient for large n.
+Space Complexity: The space complexity is O(n) due to the storage of the list of integers.
+Advantages
+The Sieve of Eratosthenes is much faster than checking each number for primality individually, especially for large ranges.
+It is simple to implement and understand.
+Limitations
+The algorithm requires O(n) space, which can be a limitation for very large n.
+It is not suitable for generating primes in a very large range if memory is a constraint.
+Conclusion
+The Sieve of Eratosthenes is a classic algorithm for finding all prime numbers up to a given limit efficiently. Its systematic approach to marking non-prime numbers makes it a foundational method in number theory and computer science.
 
 Feel free to run the program and see the magic of cryptography in action. 
 
 acknowledgements: 
 "Implementation of Diffie-Hellman Algorithm." GeeksforGeeks, GeeksforGeeks, July 3, 2024, www.geeksforgeeks.org/implementation-diffie-hellman-algorithm/. Accessed 
-April 18, 2024 - Good Friday 
-Microsoft Copilot 
-Google Colab
+April 18, 2024 - Good Friday ~ Microsoft Copilot ~ Google Colab ~
 curated with the help of Beethoven's 6th symphony 
