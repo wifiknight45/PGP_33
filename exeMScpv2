@@ -1,0 +1,69 @@
+import random
+
+# Function to validate user input
+def get_valid_input(prompt, validation_func): 
+    while True:
+        try:
+            value = int(input(prompt))
+            if validation_func(value):
+                return value
+            else:
+                print("Invalid value. Please try again.")
+        except ValueError:
+            print("Please enter a valid integer.")
+
+# Function to check if a number is prime
+def is_prime(num):
+    if num <= 1:
+        return False
+    for i in range(2, int(num**0.5) + 1):
+        if num % i == 0:
+            return False
+    return True
+
+# Power function to return value of a^b mod P
+def power(a, b, p):
+    try:
+        return pow(a, b, p)
+    except OverflowError:
+        print("Error: Computation overflowed. Please use smaller values.")
+        return None
+
+# Main function
+def main():
+    print("\n=== Diffie-Hellman Key Exchange ===")
+    
+    # User input for public keys P (prime) and G (primitive root)
+    P = get_valid_input("Enter a prime number for P: ", is_prime)
+    G = get_valid_input("Enter a primitive root for P: ", lambda x: x > 1)
+    
+    print(f"\nPublic Key P: {P}, Primitive Root G: {G}")
+    
+    # Randomly generate private keys for Alice and Bob
+    a = random.randint(1, P - 1)
+    b = random.randint(1, P - 1)
+    print(f"\nRandomly chosen private key for Alice (a): {a}")
+    print(f"Randomly chosen private key for Bob (b): {b}")
+    
+    # Generate public keys
+    x = power(G, a, P)  # Public key for Alice
+    y = power(G, b, P)  # Public key for Bob
+    
+    print(f"\nGenerated public key for Alice (x): {x}")
+    print(f"Generated public key for Bob (y): {y}")
+    
+    # Generate shared secret keys
+    ka = power(y, a, P)  # Shared secret for Alice
+    kb = power(x, b, P)  # Shared secret for Bob
+    
+    print(f"\nShared Secret Key (Alice): {ka}")
+    print(f"Shared Secret Key (Bob): {kb}")
+    
+    # Validation: Ensure both keys match
+    if ka == kb:
+        print("\nKey exchange successful! Both keys match.")
+    else:
+        print("\nKey exchange failed. Keys do not match.")
+
+if __name__ == "__main__":
+    main()
