@@ -1,0 +1,53 @@
+import csv
+
+# Function to generate all prime numbers up to a given limit using the Sieve of Eratosthenes
+def generate_primes(limit):
+    sieve = [True] * (limit + 1)
+    sieve[0] = sieve[1] = False  # 0 and 1 are not prime numbers
+    for i in range(2, int(limit**0.5) + 1):
+        if sieve[i]:
+            for j in range(i * i, limit + 1, i):
+                sieve[j] = False
+    return [num for num, is_prime in enumerate(sieve) if is_prime]
+
+# Function to save a list of primes to a .csv file
+def save_primes_to_csv(primes, filename):
+    try:
+        with open(filename, mode='w', newline='') as file:
+            writer = csv.writer(file)
+            writer.writerow(["Prime Numbers"])  # Header row
+            for prime in primes:
+                writer.writerow([prime])  # Write each prime number on a new row
+        print(f"Prime numbers successfully saved to {filename}.")
+    except Exception as e:
+        print(f"An error occurred while saving to {filename}: {e}")
+
+# Main function
+def main():
+    print("\n=== Save Prime Numbers to CSV ===")
+    
+    # User input for the upper limit
+    while True:
+        try:
+            limit = int(input("Enter the upper limit for generating prime numbers (e.g., 100001169): "))
+            if limit > 1:
+                break
+            else:
+                print("Please enter a number greater than 1.")
+        except ValueError:
+            print("Please enter a valid integer.")
+    
+    print(f"\nGenerating all prime numbers up to {limit}...")
+    primes = generate_primes(limit)
+    print(f"Found {len(primes)} prime numbers.")
+    
+    # User input for the CSV file name
+    filename = input("Enter the filename to save prime numbers (e.g., primes.csv): ")
+    if not filename.endswith(".csv"):
+        filename += ".csv"
+    
+    # Save primes to the file
+    save_primes_to_csv(primes, filename)
+
+if __name__ == "__main__":
+    main()
